@@ -30,6 +30,7 @@
   },
   "require": {
     "php": "^7.4",
+    "psr/container": "^1.1",
     "thecodingmachine/safe": "^1.1"
   },
   "require-dev": {

@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Kaiseki\Test\Unit\WordPress\Config;
 
-use PHPUnit\Framework\TestCase;
-use stdClass;
 use Kaiseki\Test\Unit\WordPress\Config\TestDouble\FakeContainer;
 use Kaiseki\WordPress\Config\Config;
 use Kaiseki\WordPress\Config\ConfigInterface;
 use Kaiseki\WordPress\Config\NestedArrayConfig;
+use PHPUnit\Framework\TestCase;
+use stdClass;
 
 final class ConfigTest extends TestCase
 {

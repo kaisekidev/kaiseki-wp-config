@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Kaiseki\Test\Unit\WordPress\Config;
 
 use InvalidArgumentException;
-use PHPUnit\Framework\TestCase;
 use Kaiseki\Test\Unit\WordPress\Config\TestDouble\FakeContainer;
 use Kaiseki\WordPress\Config\NestedArrayConfigFactory;
+use PHPUnit\Framework\TestCase;
 
 final class NestedArrayConfigFactoryTest extends TestCase
 {

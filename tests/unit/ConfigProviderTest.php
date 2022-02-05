@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Kaiseki\Test\Unit\WordPress\Config;
 
-use PHPUnit\Framework\TestCase;
 use Kaiseki\WordPress\Config\ConfigInterface;
 use Kaiseki\WordPress\Config\ConfigProvider;
 use Kaiseki\WordPress\Config\NestedArrayConfig;
 use Kaiseki\WordPress\Config\NestedArrayConfigFactory;
+use PHPUnit\Framework\TestCase;
 
 final class ConfigProviderTest extends TestCase
 {

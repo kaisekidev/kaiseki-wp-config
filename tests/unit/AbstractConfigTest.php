@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Kaiseki\Test\Unit\WordPress\Config;
 
-use PHPUnit\Framework\TestCase;
 use Kaiseki\WordPress\Config\ConfigInterface;
 use Kaiseki\WordPress\Config\Exception\InvalidValueException;
 use Kaiseki\WordPress\Config\Exception\UnknownKeyException;
+use PHPUnit\Framework\TestCase;
 
 abstract class AbstractConfigTest extends TestCase
 {
