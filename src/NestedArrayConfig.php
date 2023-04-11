@@ -11,6 +11,7 @@ use function array_key_exists;
 use function explode;
 use function is_array;
 use function is_bool;
+use function is_callable;
 use function is_float;
 use function is_int;
 use function is_string;
@@ -18,17 +19,20 @@ use function is_string;
 final class NestedArrayConfig implements ConfigInterface
 {
     public const DELIMITER = '/';
-    /** @var array<array-key, mixed> */
-    private array $config;
 
     /**
      * @param array<array-key, mixed> $config
      */
-    public function __construct(array $config)
+    public function __construct(private readonly array $config)
     {
-        $this->config = $config;
     }
 
+    /**
+     * @param string      $key
+     * @param string|null $default
+     *
+     * @return string
+     */
     public function string(string $key, ?string $default = null): string
     {
         $value = $this->get($key, $default);
@@ -91,12 +95,7 @@ final class NestedArrayConfig implements ConfigInterface
         return $this->softGet($key) !== null;
     }
 
-    /**
-     * @param string|int|float|bool|array<array-key, mixed>|null $default
-     * @return string|int|float|bool|array<array-key, mixed>
-     * @throws UnknownKeyException
-     */
-    private function get(string $key, $default)
+    private function get(string $key, mixed $default): mixed
     {
         $value = $this->softGet($key);
         if ($value === null) {
@@ -108,10 +107,7 @@ final class NestedArrayConfig implements ConfigInterface
         return $value;
     }
 
-    /**
-     * @return string|int|float|bool|array<array-key, mixed>|null
-     */
-    private function softGet(string $key)
+    private function softGet(string $key): mixed
     {
         $paths = explode(self::DELIMITER, $key);
         $current = $this->config;
