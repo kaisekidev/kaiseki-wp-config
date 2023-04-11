@@ -29,36 +29,36 @@ final class NestedArrayConfig implements ConfigInterface
         $this->config = $config;
     }
 
-    public function string(string $key): string
+    public function string(string $key, ?string $default = null): string
     {
-        $value = $this->get($key);
+        $value = $this->get($key, $default);
         if (!is_string($value)) {
             throw InvalidValueException::expectedStringFromKey($key, $value);
         }
         return $value;
     }
 
-    public function int(string $key): int
+    public function int(string $key, ?int $default = null): int
     {
-        $value = $this->get($key);
+        $value = $this->get($key, $default);
         if (!is_int($value)) {
             throw InvalidValueException::expectedIntegerFromKey($key, $value);
         }
         return $value;
     }
 
-    public function float(string $key): float
+    public function float(string $key, ?float $default = null): float
     {
-        $value = $this->get($key);
+        $value = $this->get($key, $default);
         if (!is_float($value)) {
             throw InvalidValueException::expectedFloatFromKey($key, $value);
         }
         return $value;
     }
 
-    public function bool(string $key): bool
+    public function bool(string $key, ?bool $default = null): bool
     {
-        $value = $this->get($key);
+        $value = $this->get($key, $default);
         if (!is_bool($value)) {
             throw InvalidValueException::expectedBooleanFromKey($key, $value);
         }
@@ -68,11 +68,20 @@ final class NestedArrayConfig implements ConfigInterface
     /**
      * @return array<array-key, mixed>
      */
-    public function array(string $key): array
+    public function array(string $key, ?array $default = null): array
     {
-        $value = $this->get($key);
+        $value = $this->get($key, $default);
         if (!is_array($value)) {
             throw InvalidValueException::expectedArrayFromKey($key, $value);
+        }
+        return $value;
+    }
+
+    public function callable(string $key, ?callable $default = null): callable
+    {
+        $value = $this->get($key, $default);
+        if (!is_callable($value)) {
+            throw InvalidValueException::expectedBooleanFromKey($key, $value);
         }
         return $value;
     }
@@ -83,13 +92,17 @@ final class NestedArrayConfig implements ConfigInterface
     }
 
     /**
+     * @param string|int|float|bool|array<array-key, mixed>|null $default
      * @return string|int|float|bool|array<array-key, mixed>
      * @throws UnknownKeyException
      */
-    private function get(string $key)
+    private function get(string $key, $default)
     {
         $value = $this->softGet($key);
         if ($value === null) {
+            if ($default !== null) {
+                return $default;
+            }
             throw UnknownKeyException::fromKey($key);
         }
         return $value;

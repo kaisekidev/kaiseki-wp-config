@@ -49,4 +49,12 @@ final class InvalidValueException extends InvalidArgumentException
     {
         return new self(\Safe\sprintf('Expected array value for "%s" but found "%s".', $key, gettype($value)));
     }
+
+    /**
+     * @param mixed $value
+     */
+    public static function expectedCallableFromKey(string $key, $value): self
+    {
+        return new self(\Safe\sprintf('Expected callable value for "%s" but found "%s".', $key, gettype($value)));
+    }
 }
