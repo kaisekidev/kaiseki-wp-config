@@ -7,15 +7,16 @@ namespace Kaiseki\Test\Unit\WordPress\Config;
 use Kaiseki\WordPress\Config\ConfigInterface;
 use Kaiseki\WordPress\Config\Exception\InvalidValueException;
 use Kaiseki\WordPress\Config\Exception\UnknownKeyException;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 abstract class AbstractConfigTest extends TestCase
 {
     /**
-     * @dataProvider configCases
      * @param array<array-key, mixed> $config
-     * @param mixed $expected
+     * @param mixed                   $expected
      */
+    #[DataProvider('configCases')]
     public function testGet(array $config, string $path, string $method, $expected): void
     {
         /* @phpstan-ignore-next-line */
@@ -25,7 +26,7 @@ abstract class AbstractConfigTest extends TestCase
     /**
      * @return iterable<array{0: array<array-key, mixed>, 1: string, 2: string, 3: mixed}>
      */
-    public function configCases(): iterable
+    public static function configCases(): iterable
     {
         $config = [
             'a' => [
@@ -65,9 +66,9 @@ abstract class AbstractConfigTest extends TestCase
     }
 
     /**
-     * @dataProvider invalidValueCases
      * @param mixed $value
      */
+    #[DataProvider('invalidValueCases')]
     public function testInvalidValue($value, string $method): void
     {
         $this->expectException(InvalidValueException::class);
@@ -79,7 +80,7 @@ abstract class AbstractConfigTest extends TestCase
     /**
      * @return iterable<array{0: mixed, 1: string}>
      */
-    public function invalidValueCases(): iterable
+    public static function invalidValueCases(): iterable
     {
         yield ['foo', 'int'];
         yield [123, 'string'];

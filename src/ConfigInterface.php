@@ -15,6 +15,8 @@ interface ConfigInterface
     public function bool(string $key): bool;
 
     /**
+     * @param string $key
+     *
      * @return array<array-key, mixed>
      */
     public function array(string $key): array;
