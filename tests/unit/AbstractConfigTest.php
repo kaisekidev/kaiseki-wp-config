@@ -53,6 +53,9 @@ abstract class AbstractConfigTest extends TestCase
         yield [$config, 'a/a/e', 'array', ['foo', 'bar']];
         yield [$config, 'a/a/a', 'has', true];
         yield [$config, 'a/a/f', 'has', false];
+        // descending through a scalar node ('c' => 'Baz') must be treated as a missing
+        // key, not raise a TypeError from array_key_exists() on a non-array.
+        yield [$config, 'c/missing', 'has', false];
     }
 
     public function testUnknownKey(): void
