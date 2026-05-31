@@ -15,7 +15,12 @@ final class Config
 
     /**
      * @template T of object
+     *
+     * @param ContainerInterface $container
+     * @param array              $map
+     *
      * @phpstan-param array<array-key, class-string<T>> $map
+     *
      * @phpstan-return array<array-key, T>
      */
     public static function initClassMap(ContainerInterface $container, array $map): array
@@ -26,6 +31,7 @@ final class Config
             $object = $container->get($className);
             $init[$key] = $object;
         }
+
         return $init;
     }
 

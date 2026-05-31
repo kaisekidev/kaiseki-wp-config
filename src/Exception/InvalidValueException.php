@@ -11,7 +11,8 @@ use function gettype;
 final class InvalidValueException extends InvalidArgumentException
 {
     /**
-     * @param mixed $value
+     * @param string $key
+     * @param mixed  $value
      */
     public static function expectedStringFromKey(string $key, $value): self
     {
@@ -19,7 +20,8 @@ final class InvalidValueException extends InvalidArgumentException
     }
 
     /**
-     * @param mixed $value
+     * @param string $key
+     * @param mixed  $value
      */
     public static function expectedIntegerFromKey(string $key, $value): self
     {
@@ -27,7 +29,8 @@ final class InvalidValueException extends InvalidArgumentException
     }
 
     /**
-     * @param mixed $value
+     * @param string $key
+     * @param mixed  $value
      */
     public static function expectedFloatFromKey(string $key, $value): self
     {
@@ -35,7 +38,8 @@ final class InvalidValueException extends InvalidArgumentException
     }
 
     /**
-     * @param mixed $value
+     * @param string $key
+     * @param mixed  $value
      */
     public static function expectedBooleanFromKey(string $key, $value): self
     {
@@ -43,7 +47,8 @@ final class InvalidValueException extends InvalidArgumentException
     }
 
     /**
-     * @param mixed $value
+     * @param string $key
+     * @param mixed  $value
      */
     public static function expectedArrayFromKey(string $key, $value): self
     {

@@ -17,6 +17,7 @@ final class NestedArrayConfigFactory
         if (!is_array($config)) {
             throw new InvalidArgumentException('Config must be an array');
         }
+
         return new NestedArrayConfig($config);
     }
 }

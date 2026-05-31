@@ -35,6 +35,7 @@ final class NestedArrayConfig implements ConfigInterface
         if (!is_string($value)) {
             throw InvalidValueException::expectedStringFromKey($key, $value);
         }
+
         return $value;
     }
 
@@ -44,6 +45,7 @@ final class NestedArrayConfig implements ConfigInterface
         if (!is_int($value)) {
             throw InvalidValueException::expectedIntegerFromKey($key, $value);
         }
+
         return $value;
     }
 
@@ -53,6 +55,7 @@ final class NestedArrayConfig implements ConfigInterface
         if (!is_float($value)) {
             throw InvalidValueException::expectedFloatFromKey($key, $value);
         }
+
         return $value;
     }
 
@@ -62,10 +65,13 @@ final class NestedArrayConfig implements ConfigInterface
         if (!is_bool($value)) {
             throw InvalidValueException::expectedBooleanFromKey($key, $value);
         }
+
         return $value;
     }
 
     /**
+     * @param string $key
+     *
      * @return array<array-key, mixed>
      */
     public function array(string $key): array
@@ -74,6 +80,7 @@ final class NestedArrayConfig implements ConfigInterface
         if (!is_array($value)) {
             throw InvalidValueException::expectedArrayFromKey($key, $value);
         }
+
         return $value;
     }
 
@@ -83,8 +90,11 @@ final class NestedArrayConfig implements ConfigInterface
     }
 
     /**
-     * @return string|int|float|bool|array<array-key, mixed>
+     * @param string $key
+     *
      * @throws UnknownKeyException
+     *
+     * @return mixed
      */
     private function get(string $key)
     {
@@ -92,22 +102,26 @@ final class NestedArrayConfig implements ConfigInterface
         if ($value === null) {
             throw UnknownKeyException::fromKey($key);
         }
+
         return $value;
     }
 
     /**
-     * @return string|int|float|bool|array<array-key, mixed>|null
+     * @param string $key
+     *
+     * @return mixed
      */
     private function softGet(string $key)
     {
         $paths = explode(self::DELIMITER, $key);
         $current = $this->config;
         foreach ($paths as $index) {
-            if (!array_key_exists($index, $current)) {
+            if (!is_array($current) || !array_key_exists($index, $current)) {
                 return null;
             }
             $current = $current[$index];
         }
+
         return $current;
     }
 }
